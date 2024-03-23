@@ -1,88 +1,164 @@
-# Digital-Twin of a Traffic Scene Using RSU, AWSIM, And Autoware
-B. Sc. Thesis concerning the semi-automatic creation of a digital twin of a traffic scene near Amirkabir University of Technology
+<div class="Box-sc-g0xbh4-0 bJMeLZ js-snippet-clipboard-copy-unpositioned" data-hpc="true"><article class="markdown-body entry-content container-lg" itemprop="text"><div class="markdown-heading" dir="auto"><h1 tabindex="-1" class="heading-element" dir="auto"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">使用 RSU、AWSIM 和 Autoware 的交通场景数字孪生</font></font></h1><a id="user-content-digital-twin-of-a-traffic-scene-using-rsu-awsim-and-autoware" class="anchor" aria-label="永久链接：使用 RSU、AWSIM 和 Autoware 的交通场景数字孪生" href="#digital-twin-of-a-traffic-scene-using-rsu-awsim-and-autoware"><svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg></a></div>
+<p dir="auto"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">学士。</font><font style="vertical-align: inherit;">关于阿米尔卡比尔理工大学附近交通场景的数字孪生半自动创建的论文</font></font></p>
+<p dir="auto"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">项目提案于 2023 年 5 月 11 日接受</font></font></p>
+<div class="markdown-heading" dir="auto"><h2 tabindex="-1" class="heading-element" dir="auto"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">介绍：</font></font></h2><a id="user-content-introduction" class="anchor" aria-label="永久链接： 简介：" href="#introduction"><svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg></a></div>
+<p dir="auto"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">在智能交通系统 (ITS)、交通管理和自动驾驶汽车快速发展的领域中，真实的模拟环境对于测试和推进尖端技术至关重要。</font><font style="vertical-align: inherit;">本论文介绍了创建交通场景数字孪生的实用方法，从而能够对现实世界的交通场景进行高保真模拟。</font></font></p>
+<div class="markdown-heading" dir="auto"><h3 tabindex="-1" class="heading-element" dir="auto"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">关键部件：</font></font></h3><a id="user-content-key-components" class="anchor" aria-label="永久链接：关键组件：" href="#key-components"><svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg></a></div>
+<ul dir="auto">
+<li><strong><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Ouster Lidar 数据集成：</font></font></strong><font style="vertical-align: inherit;"><font style="vertical-align: inherit;"> Ouster Lidar 数据实时转换</font></font><code>.pcap</code><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">为</font></font><code>PointCloud2</code><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">ROS2 主题。</font></font></li>
+<li><strong><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">动态对象检测：使用</font></font></strong><font style="vertical-align: inherit;"></font><strong><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Autoware 的感知模块</font></font></strong><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">和专门设计用于接受任何类型 Lidar PointCloud2 数据的自制发射器</font><font style="vertical-align: inherit;">实时检测 3D 对象。</font></font></li>
+<li><strong><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">AWSIM 集成：</font></font></strong><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">将跟踪对象无缝集成到基于 Unity 的模拟器 AWSIM 中。</font></font></li>
+</ul>
+<div class="markdown-heading" dir="auto"><h3 tabindex="-1" class="heading-element" dir="auto"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">项目目标：</font></font></h3><a id="user-content-project-goals" class="anchor" aria-label="永久链接： 项目目标：" href="#project-goals"><svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg></a></div>
+<ul dir="auto">
+<li><strong><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">真实性：</font></font></strong><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">对传感器数据捕获的现实世界交通状况进行准确建模。</font></font></li>
+<li><strong><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">自动化：</font></font></strong><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">实时数据转换和对象集成的自动方法。</font></font></li>
+<li><strong><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">验证：</font></font></strong><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">利用创新工具进行有效的验证和测试。</font></font></li>
+</ul>
+<div class="markdown-heading" dir="auto"><h3 tabindex="-1" class="heading-element" dir="auto"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">意义：</font></font></h3><a id="user-content-significance" class="anchor" aria-label="永久链接： 意义：" href="#significance"><svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg></a></div>
+<ul dir="auto">
+<li><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">增强动态且真实的虚拟环境中 ITS 和流量管理算法的测试。</font></font></li>
+<li><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">为自动驾驶汽车开发、培训和适应特定地区交通场景提供了一个有价值的平台。</font></font></li>
+<li><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">无需合成交通条件和劳动密集型模拟设置。</font></font></li>
+</ul>
+<p dir="auto"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">该项目提供了一个探索数字孪生领域的机会，彻底改变了我们模拟和分析交通场景的方式，以造福于未来的交通系统和自动驾驶汽车。</font></font></p>
+<div class="markdown-heading" dir="auto"><h2 tabindex="-1" class="heading-element" dir="auto"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">教程</font></font></h2><a id="user-content-tutorial" class="anchor" aria-label="永久链接：教程" href="#tutorial"><svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg></a></div>
+<p dir="auto"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">首先，尝试这里的教程：</font></font><br>
+<a href="https://rzninvo.github.io/Digital-Twin-of-a-Traffic-Scene-Using-RSU-and-AWSIM/GettingStarted/QuickStartDemo/" rel="nofollow"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">AUT-DT 文档 - 快速入门演示</font></font></a></p>
+<div class="markdown-heading" dir="auto"><h2 tabindex="-1" class="heading-element" dir="auto"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">文档</font></font></h2><a id="user-content-documentation" class="anchor" aria-label="永久链接：文档" href="#documentation"><svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg></a></div>
+<p dir="auto"><a href="https://rzninvo.github.io/Digital-Twin-of-a-Traffic-Scene-Using-RSU-and-AWSIM/" rel="nofollow"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">AUT-DT 文档</font></font></a></p>
+<div class="markdown-heading" dir="auto"><h2 tabindex="-1" class="heading-element" dir="auto"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">笔记</font></font></h2><a id="user-content-notes" class="anchor" aria-label="永久链接：注释" href="#notes"><svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg></a></div>
+<ul dir="auto">
+<li><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">我目前有很多事情要做，无法记录这个项目。</font><font style="vertical-align: inherit;">但一旦我答辩了这篇论文，我就会记录下一切！</font></font></li>
+<li><strong><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">仍在等待 Javanmardi 教授批准何时上传源代码。</font><font style="vertical-align: inherit;">现在我将上传项目运行时。</font></font></strong></li>
+<li><a href="https://github.com/rzninvo/AWSIM"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">查看我正在为 AWSIM 编写模拟代码的其他存储库。</font></font></a></li>
+</ul>
+<div class="markdown-heading" dir="auto"><h2 tabindex="-1" class="heading-element" dir="auto"><strong><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">（最新更新）</font></font></strong><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">阿米尔卡比尔理工大学 Rasht Street 的实时模拟（半数字孪生）（GIF）：</font></font></h2><a id="user-content-latest-update-the-real-time-simulation-semi-digital-twin-for-amirkabir-university-of-technology-rasht-street-gif" class="anchor" aria-label="永久链接：（最新更新）阿米尔卡比尔理工大学 Rasht Street 的实时模拟（半数字孪生）（GIF）：" href="#latest-update-the-real-time-simulation-semi-digital-twin-for-amirkabir-university-of-technology-rasht-street-gif"><svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg></a></div>
+<p dir="auto"><animated-image data-catalyst=""><a target="_blank" rel="noopener noreferrer" href="/rzninvo/Digital-Twin-of-a-Traffic-Scene-Using-RSU-and-AWSIM/blob/main/resource/Digital_Twin.gif" data-target="animated-image.originalLink"><img src="/rzninvo/Digital-Twin-of-a-Traffic-Scene-Using-RSU-and-AWSIM/raw/main/resource/Digital_Twin.gif" alt="RASHT_DT_DEMO" style="max-width: 100%; display: inline-block;" data-target="animated-image.originalImage"></a>
+      <span class="AnimatedImagePlayer" data-target="animated-image.player" hidden="">
+        <a data-target="animated-image.replacedLink" class="AnimatedImagePlayer-images" href="https://github.com/rzninvo/Digital-Twin-of-a-Traffic-Scene-Using-RSU-and-AWSIM/blob/main/resource/Digital_Twin.gif" target="_blank">
+          
+        <span data-target="animated-image.imageContainer">
+            <img data-target="animated-image.replacedImage" alt="RASHT_DT_DEMO" class="AnimatedImagePlayer-animatedImage" src="https://github.com/rzninvo/Digital-Twin-of-a-Traffic-Scene-Using-RSU-and-AWSIM/raw/main/resource/Digital_Twin.gif" style="display: block; opacity: 1;">
+          <canvas class="AnimatedImagePlayer-stillImage" aria-hidden="true" width="814" height="458"></canvas></span></a>
+        <button data-target="animated-image.imageButton" class="AnimatedImagePlayer-images" tabindex="-1" aria-label="Play RASHT_DT_DEMO" hidden=""></button>
+        <span class="AnimatedImagePlayer-controls" data-target="animated-image.controls" hidden="">
+          <button data-target="animated-image.playButton" class="AnimatedImagePlayer-button" aria-label="Play RASHT_DT_DEMO">
+            <svg aria-hidden="true" focusable="false" class="octicon icon-play" width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M4 13.5427V2.45734C4 1.82607 4.69692 1.4435 5.2295 1.78241L13.9394 7.32507C14.4334 7.63943 14.4334 8.36057 13.9394 8.67493L5.2295 14.2176C4.69692 14.5565 4 14.1739 4 13.5427Z">
+            </path></svg>
+            <svg aria-hidden="true" focusable="false" class="octicon icon-pause" width="16" height="16" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg">
+              <rect x="4" y="2" width="3" height="12" rx="1"></rect>
+              <rect x="9" y="2" width="3" height="12" rx="1"></rect>
+            </svg>
+          </button>
+          <a data-target="animated-image.openButton" aria-label="Open RASHT_DT_DEMO in new window" class="AnimatedImagePlayer-button" href="https://github.com/rzninvo/Digital-Twin-of-a-Traffic-Scene-Using-RSU-and-AWSIM/blob/main/resource/Digital_Twin.gif" target="_blank">
+            <svg aria-hidden="true" class="octicon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="16" height="16">
+              <path fill-rule="evenodd" d="M10.604 1h4.146a.25.25 0 01.25.25v4.146a.25.25 0 01-.427.177L13.03 4.03 9.28 7.78a.75.75 0 01-1.06-1.06l3.75-3.75-1.543-1.543A.25.25 0 0110.604 1zM3.75 2A1.75 1.75 0 002 3.75v8.5c0 .966.784 1.75 1.75 1.75h8.5A1.75 1.75 0 0014 12.25v-3.5a.75.75 0 00-1.5 0v3.5a.25.25 0 01-.25.25h-8.5a.25.25 0 01-.25-.25v-8.5a.25.25 0 01.25-.25h3.5a.75.75 0 000-1.5h-3.5z"></path>
+            </svg>
+          </a>
+        </span>
+      </span></animated-image></p>
+<div class="markdown-heading" dir="auto"><h2 tabindex="-1" class="heading-element" dir="auto"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">交叉路口演示的实时模拟（半数字孪生）：</font></font></h2><a id="user-content-the-real-time-simulation-semi-digital-twin-for-an-intersection-demo" class="anchor" aria-label="永久链接：交叉路口演示的实时模拟（半数字孪生）：" href="#the-real-time-simulation-semi-digital-twin-for-an-intersection-demo"><svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg></a></div>
+<details open="" class="details-reset border rounded-2">
+  <summary class="px-3 py-2">
+    <svg aria-hidden="true" height="16" viewBox="0 0 16 16" version="1.1" width="16" data-view-component="true" class="octicon octicon-device-camera-video">
+    <path d="M16 3.75v8.5a.75.75 0 0 1-1.136.643L11 10.575v.675A1.75 1.75 0 0 1 9.25 13h-7.5A1.75 1.75 0 0 1 0 11.25v-6.5C0 3.784.784 3 1.75 3h7.5c.966 0 1.75.784 1.75 1.75v.675l3.864-2.318A.75.75 0 0 1 16 3.75Zm-6.5 1a.25.25 0 0 0-.25-.25h-7.5a.25.25 0 0 0-.25.25v6.5c0 .138.112.25.25.25h7.5a.25.25 0 0 0 .25-.25v-6.5ZM11 8.825l3.5 2.1v-5.85l-3.5 2.1Z"></path>
+</svg>
+    <span aria-label="视频说明 real_time_intersection_simulation_AWSIM_compressed.mp4" class="m-1"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">real_time_intersection_simulation_AWSIM_Compressed.mp4</font></font></span>
+    <span class="dropdown-caret"></span>
+  </summary>
 
-Project Proposal Accepted at 5/11/2023
+  <video src="https://private-user-images.githubusercontent.com/46872428/272116765-61aba3b1-a6cb-4f1a-9d2e-9236baa5d7ad.mp4?jwt=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoicmF3LmdpdGh1YnVzZXJjb250ZW50LmNvbSIsImtleSI6ImtleTUiLCJleHAiOjE3MTExNjI1MDEsIm5iZiI6MTcxMTE2MjIwMSwicGF0aCI6Ii80Njg3MjQyOC8yNzIxMTY3NjUtNjFhYmEzYjEtYTZjYi00ZjFhLTlkMmUtOTIzNmJhYTVkN2FkLm1wND9YLUFtei1BbGdvcml0aG09QVdTNC1ITUFDLVNIQTI1NiZYLUFtei1DcmVkZW50aWFsPUFLSUFWQ09EWUxTQTUzUFFLNFpBJTJGMjAyNDAzMjMlMkZ1cy1lYXN0LTElMkZzMyUyRmF3czRfcmVxdWVzdCZYLUFtei1EYXRlPTIwMjQwMzIzVDAyNTAwMVomWC1BbXotRXhwaXJlcz0zMDAmWC1BbXotU2lnbmF0dXJlPTc1NWNiYWJkMzQ0NjMzYWE1MGU2YWZmMDA1ZDkwMTYzZmY4OWNjMzEwMGM0OTRhMzBiNGM1MmZiY2I1MzI0MjImWC1BbXotU2lnbmVkSGVhZGVycz1ob3N0JmFjdG9yX2lkPTAma2V5X2lkPTAmcmVwb19pZD0wIn0.uO3h23alPeImcChLS2XbOt4vvXFmeQbKIENBpkaP_Yk" data-canonical-src="https://private-user-images.githubusercontent.com/46872428/272116765-61aba3b1-a6cb-4f1a-9d2e-9236baa5d7ad.mp4?jwt=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoicmF3LmdpdGh1YnVzZXJjb250ZW50LmNvbSIsImtleSI6ImtleTUiLCJleHAiOjE3MTExNjI1MDEsIm5iZiI6MTcxMTE2MjIwMSwicGF0aCI6Ii80Njg3MjQyOC8yNzIxMTY3NjUtNjFhYmEzYjEtYTZjYi00ZjFhLTlkMmUtOTIzNmJhYTVkN2FkLm1wND9YLUFtei1BbGdvcml0aG09QVdTNC1ITUFDLVNIQTI1NiZYLUFtei1DcmVkZW50aWFsPUFLSUFWQ09EWUxTQTUzUFFLNFpBJTJGMjAyNDAzMjMlMkZ1cy1lYXN0LTElMkZzMyUyRmF3czRfcmVxdWVzdCZYLUFtei1EYXRlPTIwMjQwMzIzVDAyNTAwMVomWC1BbXotRXhwaXJlcz0zMDAmWC1BbXotU2lnbmF0dXJlPTc1NWNiYWJkMzQ0NjMzYWE1MGU2YWZmMDA1ZDkwMTYzZmY4OWNjMzEwMGM0OTRhMzBiNGM1MmZiY2I1MzI0MjImWC1BbXotU2lnbmVkSGVhZGVycz1ob3N0JmFjdG9yX2lkPTAma2V5X2lkPTAmcmVwb19pZD0wIn0.uO3h23alPeImcChLS2XbOt4vvXFmeQbKIENBpkaP_Yk" controls="controls" muted="muted" class="d-block rounded-bottom-2 border-top width-fit" style="max-height:640px; min-height: 200px">
 
-## Introduction: 
-In the rapidly evolving landscape of Intelligent Transportation Systems (ITS), traffic management, and autonomous vehicles, realistic simulation environments are pivotal for testing and advancing cutting-edge technologies. This thesis introduces a practical approach on creating a Digital Twin of a Traffic Scene, enabling high-fidelity simulations of real-world traffic scenarios.
+  </video>
+</details>
 
-### Key Components:
-- **Ouster Lidar Data Integration:** Real-time conversion of Ouster Lidar `.pcap` data to `PointCloud2` ROS2 topics.
-- **Dynamic Object Detection:** Detection of 3D objects in real-time using **Autoware's Perception Module** with self-made launchers specifically designed to accept any kind of Lidar PointCloud2 data.
-- **AWSIM Integration:** Seamless integration of tracked objects into AWSIM, a Unity-based simulator.
+<div class="markdown-heading" dir="auto"><h2 tabindex="-1" class="heading-element" dir="auto"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">交叉口实时检测演示：</font></font></h2><a id="user-content-the-real-time-detection-for-an-intersection-demo" class="anchor" aria-label="永久链接：交叉口实时检测演示：" href="#the-real-time-detection-for-an-intersection-demo"><svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg></a></div>
+<details open="" class="details-reset border rounded-2">
+  <summary class="px-3 py-2">
+    <svg aria-hidden="true" height="16" viewBox="0 0 16 16" version="1.1" width="16" data-view-component="true" class="octicon octicon-device-camera-video">
+    <path d="M16 3.75v8.5a.75.75 0 0 1-1.136.643L11 10.575v.675A1.75 1.75 0 0 1 9.25 13h-7.5A1.75 1.75 0 0 1 0 11.25v-6.5C0 3.784.784 3 1.75 3h7.5c.966 0 1.75.784 1.75 1.75v.675l3.864-2.318A.75.75 0 0 1 16 3.75Zm-6.5 1a.25.25 0 0 0-.25-.25h-7.5a.25.25 0 0 0-.25.25v6.5c0 .138.112.25.25.25h7.5a.25.25 0 0 0 .25-.25v-6.5ZM11 8.825l3.5 2.1v-5.85l-3.5 2.1Z"></path>
+</svg>
+    <span aria-label="视频说明 real_time_detection_intersection.mp4" class="m-1"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">实时检测交点.mp4</font></font></span>
+    <span class="dropdown-caret"></span>
+  </summary>
 
-### Project Goals:
+  <video src="https://private-user-images.githubusercontent.com/46872428/267297922-2549ab65-fce6-48c2-88c2-b1d3b224020b.mp4?jwt=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoicmF3LmdpdGh1YnVzZXJjb250ZW50LmNvbSIsImtleSI6ImtleTUiLCJleHAiOjE3MTExNjI1MDEsIm5iZiI6MTcxMTE2MjIwMSwicGF0aCI6Ii80Njg3MjQyOC8yNjcyOTc5MjItMjU0OWFiNjUtZmNlNi00OGMyLTg4YzItYjFkM2IyMjQwMjBiLm1wND9YLUFtei1BbGdvcml0aG09QVdTNC1ITUFDLVNIQTI1NiZYLUFtei1DcmVkZW50aWFsPUFLSUFWQ09EWUxTQTUzUFFLNFpBJTJGMjAyNDAzMjMlMkZ1cy1lYXN0LTElMkZzMyUyRmF3czRfcmVxdWVzdCZYLUFtei1EYXRlPTIwMjQwMzIzVDAyNTAwMVomWC1BbXotRXhwaXJlcz0zMDAmWC1BbXotU2lnbmF0dXJlPWYzOTkxMWNlMDRjNmExZGJiZmNhMTNiYTk2YTY0YTk3MmU1YjAyNjU5NWNjNjc0YTk2YjMxNGYyODAzMTRiZjMmWC1BbXotU2lnbmVkSGVhZGVycz1ob3N0JmFjdG9yX2lkPTAma2V5X2lkPTAmcmVwb19pZD0wIn0.AaVTOvPkdDUn51KFCcm6E_rItU-5zRzgsJuq5mluh0Y" data-canonical-src="https://private-user-images.githubusercontent.com/46872428/267297922-2549ab65-fce6-48c2-88c2-b1d3b224020b.mp4?jwt=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoicmF3LmdpdGh1YnVzZXJjb250ZW50LmNvbSIsImtleSI6ImtleTUiLCJleHAiOjE3MTExNjI1MDEsIm5iZiI6MTcxMTE2MjIwMSwicGF0aCI6Ii80Njg3MjQyOC8yNjcyOTc5MjItMjU0OWFiNjUtZmNlNi00OGMyLTg4YzItYjFkM2IyMjQwMjBiLm1wND9YLUFtei1BbGdvcml0aG09QVdTNC1ITUFDLVNIQTI1NiZYLUFtei1DcmVkZW50aWFsPUFLSUFWQ09EWUxTQTUzUFFLNFpBJTJGMjAyNDAzMjMlMkZ1cy1lYXN0LTElMkZzMyUyRmF3czRfcmVxdWVzdCZYLUFtei1EYXRlPTIwMjQwMzIzVDAyNTAwMVomWC1BbXotRXhwaXJlcz0zMDAmWC1BbXotU2lnbmF0dXJlPWYzOTkxMWNlMDRjNmExZGJiZmNhMTNiYTk2YTY0YTk3MmU1YjAyNjU5NWNjNjc0YTk2YjMxNGYyODAzMTRiZjMmWC1BbXotU2lnbmVkSGVhZGVycz1ob3N0JmFjdG9yX2lkPTAma2V5X2lkPTAmcmVwb19pZD0wIn0.AaVTOvPkdDUn51KFCcm6E_rItU-5zRzgsJuq5mluh0Y" controls="controls" muted="muted" class="d-block rounded-bottom-2 border-top width-fit" style="max-height:640px; min-height: 200px">
 
-- **Realism:** Accurate modeling of real-world traffic conditions captured by sensor data.
-- **Automation:** An automatic methodology for real-time data transformation and object integration.
-- **Validation:** Utilization of innovative tools for effective validation and testing.
+  </video>
+</details>
 
-### Significance:
+<div class="markdown-heading" dir="auto"><h2 tabindex="-1" class="heading-element" dir="auto"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">驾驶汽车实时检测演示：</font></font></h2><a id="user-content-the-real-time-detection-for-a-driving-car-demo" class="anchor" aria-label="永久链接：驾驶汽车实时检测演示：" href="#the-real-time-detection-for-a-driving-car-demo"><svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg></a></div>
+<details open="" class="details-reset border rounded-2">
+  <summary class="px-3 py-2">
+    <svg aria-hidden="true" height="16" viewBox="0 0 16 16" version="1.1" width="16" data-view-component="true" class="octicon octicon-device-camera-video">
+    <path d="M16 3.75v8.5a.75.75 0 0 1-1.136.643L11 10.575v.675A1.75 1.75 0 0 1 9.25 13h-7.5A1.75 1.75 0 0 1 0 11.25v-6.5C0 3.784.784 3 1.75 3h7.5c.966 0 1.75.784 1.75 1.75v.675l3.864-2.318A.75.75 0 0 1 16 3.75Zm-6.5 1a.25.25 0 0 0-.25-.25h-7.5a.25.25 0 0 0-.25.25v6.5c0 .138.112.25.25.25h7.5a.25.25 0 0 0 .25-.25v-6.5ZM11 8.825l3.5 2.1v-5.85l-3.5 2.1Z"></path>
+</svg>
+    <span aria-label="视频说明 real_time_detection_demo_driven.mp4" class="m-1"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">实时检测_演示_驾驶.mp4</font></font></span>
+    <span class="dropdown-caret"></span>
+  </summary>
 
-- Enhances the testing of ITS and traffic management algorithms in a dynamic and realistic virtual environment.
-- Provides a valuable platform for autonomous vehicle development, training, and adaptation to region-specific traffic scenarios.
-- Eliminates the need for synthesized traffic conditions and labor-intensive simulation setups.
+  <video src="https://private-user-images.githubusercontent.com/46872428/267298461-0ee02405-9e35-4a63-bf8c-4ef97401d949.mp4?jwt=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoicmF3LmdpdGh1YnVzZXJjb250ZW50LmNvbSIsImtleSI6ImtleTUiLCJleHAiOjE3MTExNjI1MDEsIm5iZiI6MTcxMTE2MjIwMSwicGF0aCI6Ii80Njg3MjQyOC8yNjcyOTg0NjEtMGVlMDI0MDUtOWUzNS00YTYzLWJmOGMtNGVmOTc0MDFkOTQ5Lm1wND9YLUFtei1BbGdvcml0aG09QVdTNC1ITUFDLVNIQTI1NiZYLUFtei1DcmVkZW50aWFsPUFLSUFWQ09EWUxTQTUzUFFLNFpBJTJGMjAyNDAzMjMlMkZ1cy1lYXN0LTElMkZzMyUyRmF3czRfcmVxdWVzdCZYLUFtei1EYXRlPTIwMjQwMzIzVDAyNTAwMVomWC1BbXotRXhwaXJlcz0zMDAmWC1BbXotU2lnbmF0dXJlPTIxYzU0OWZkZjVkMzgyMzU3MzRkNzY4NmUzOWUxYmUxOTVmM2M2ZjIzODdlNDVkZmEzODZjZDFhZGJkZGVhMWUmWC1BbXotU2lnbmVkSGVhZGVycz1ob3N0JmFjdG9yX2lkPTAma2V5X2lkPTAmcmVwb19pZD0wIn0.XlW-zlHaNjwZuLijidXwS107-lZ8kxhONl6kyYS2O3I" data-canonical-src="https://private-user-images.githubusercontent.com/46872428/267298461-0ee02405-9e35-4a63-bf8c-4ef97401d949.mp4?jwt=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoicmF3LmdpdGh1YnVzZXJjb250ZW50LmNvbSIsImtleSI6ImtleTUiLCJleHAiOjE3MTExNjI1MDEsIm5iZiI6MTcxMTE2MjIwMSwicGF0aCI6Ii80Njg3MjQyOC8yNjcyOTg0NjEtMGVlMDI0MDUtOWUzNS00YTYzLWJmOGMtNGVmOTc0MDFkOTQ5Lm1wND9YLUFtei1BbGdvcml0aG09QVdTNC1ITUFDLVNIQTI1NiZYLUFtei1DcmVkZW50aWFsPUFLSUFWQ09EWUxTQTUzUFFLNFpBJTJGMjAyNDAzMjMlMkZ1cy1lYXN0LTElMkZzMyUyRmF3czRfcmVxdWVzdCZYLUFtei1EYXRlPTIwMjQwMzIzVDAyNTAwMVomWC1BbXotRXhwaXJlcz0zMDAmWC1BbXotU2lnbmF0dXJlPTIxYzU0OWZkZjVkMzgyMzU3MzRkNzY4NmUzOWUxYmUxOTVmM2M2ZjIzODdlNDVkZmEzODZjZDFhZGJkZGVhMWUmWC1BbXotU2lnbmVkSGVhZGVycz1ob3N0JmFjdG9yX2lkPTAma2V5X2lkPTAmcmVwb19pZD0wIn0.XlW-zlHaNjwZuLijidXwS107-lZ8kxhONl6kyYS2O3I" controls="controls" muted="muted" class="d-block rounded-bottom-2 border-top width-fit" style="max-height:640px; min-height: 200px">
 
-This project presents an opportunity to explore the realms of digital twinning, revolutionizing how we simulate and analyze traffic scenarios for the benefit of future transportation systems and autonomous vehicles.
+  </video>
+</details>
 
-## Tutorial
-First, Try the tutorial from here:   
-[AUT-DT Document - Quick Start Demo](https://rzninvo.github.io/Digital-Twin-of-a-Traffic-Scene-Using-RSU-and-AWSIM/GettingStarted/QuickStartDemo/)
+<div class="markdown-heading" dir="auto"><h2 tabindex="-1" class="heading-element" dir="auto"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">配置完所有内容后的 AWSIM 演示</font></font></h2><a id="user-content-the-awsim-demo-after-configurating-everything" class="anchor" aria-label="永久链接：配置完所有内容后的 AWSIM 演示" href="#the-awsim-demo-after-configurating-everything"><svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg></a></div>
+<details open="" class="details-reset border rounded-2">
+  <summary class="px-3 py-2">
+    <svg aria-hidden="true" height="16" viewBox="0 0 16 16" version="1.1" width="16" data-view-component="true" class="octicon octicon-device-camera-video">
+    <path d="M16 3.75v8.5a.75.75 0 0 1-1.136.643L11 10.575v.675A1.75 1.75 0 0 1 9.25 13h-7.5A1.75 1.75 0 0 1 0 11.25v-6.5C0 3.784.784 3 1.75 3h7.5c.966 0 1.75.784 1.75 1.75v.675l3.864-2.318A.75.75 0 0 1 16 3.75Zm-6.5 1a.25.25 0 0 0-.25-.25h-7.5a.25.25 0 0 0-.25.25v6.5c0 .138.112.25.25.25h7.5a.25.25 0 0 0 .25-.25v-6.5ZM11 8.825l3.5 2.1v-5.85l-3.5 2.1Z"></path>
+</svg>
+    <span aria-label="视频说明 AWSIM_Demo.mp4" class="m-1"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">AWSIM_演示.mp4</font></font></span>
+    <span class="dropdown-caret"></span>
+  </summary>
 
-## Documentation
-[AUT-DT Documentation](https://rzninvo.github.io/Digital-Twin-of-a-Traffic-Scene-Using-RSU-and-AWSIM/)
+  <video src="https://private-user-images.githubusercontent.com/46872428/255178608-f5b05a3e-4cc1-45c5-b072-100a61d440fc.mp4?jwt=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoicmF3LmdpdGh1YnVzZXJjb250ZW50LmNvbSIsImtleSI6ImtleTUiLCJleHAiOjE3MTExNjI1MDEsIm5iZiI6MTcxMTE2MjIwMSwicGF0aCI6Ii80Njg3MjQyOC8yNTUxNzg2MDgtZjViMDVhM2UtNGNjMS00NWM1LWIwNzItMTAwYTYxZDQ0MGZjLm1wND9YLUFtei1BbGdvcml0aG09QVdTNC1ITUFDLVNIQTI1NiZYLUFtei1DcmVkZW50aWFsPUFLSUFWQ09EWUxTQTUzUFFLNFpBJTJGMjAyNDAzMjMlMkZ1cy1lYXN0LTElMkZzMyUyRmF3czRfcmVxdWVzdCZYLUFtei1EYXRlPTIwMjQwMzIzVDAyNTAwMVomWC1BbXotRXhwaXJlcz0zMDAmWC1BbXotU2lnbmF0dXJlPTM0NWFkZTA3YTU1N2I3MmE0MDJmZmVlM2M0N2NhYWJkZTM1YjhiMGZiMzU3OTliZDc1YWIyOTI1MzczNjY3ZmYmWC1BbXotU2lnbmVkSGVhZGVycz1ob3N0JmFjdG9yX2lkPTAma2V5X2lkPTAmcmVwb19pZD0wIn0.7Ad_iB8tuUI_RQvcFqaMnLlDYShEG20LxDKVEDkgMm0" data-canonical-src="https://private-user-images.githubusercontent.com/46872428/255178608-f5b05a3e-4cc1-45c5-b072-100a61d440fc.mp4?jwt=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoicmF3LmdpdGh1YnVzZXJjb250ZW50LmNvbSIsImtleSI6ImtleTUiLCJleHAiOjE3MTExNjI1MDEsIm5iZiI6MTcxMTE2MjIwMSwicGF0aCI6Ii80Njg3MjQyOC8yNTUxNzg2MDgtZjViMDVhM2UtNGNjMS00NWM1LWIwNzItMTAwYTYxZDQ0MGZjLm1wND9YLUFtei1BbGdvcml0aG09QVdTNC1ITUFDLVNIQTI1NiZYLUFtei1DcmVkZW50aWFsPUFLSUFWQ09EWUxTQTUzUFFLNFpBJTJGMjAyNDAzMjMlMkZ1cy1lYXN0LTElMkZzMyUyRmF3czRfcmVxdWVzdCZYLUFtei1EYXRlPTIwMjQwMzIzVDAyNTAwMVomWC1BbXotRXhwaXJlcz0zMDAmWC1BbXotU2lnbmF0dXJlPTM0NWFkZTA3YTU1N2I3MmE0MDJmZmVlM2M0N2NhYWJkZTM1YjhiMGZiMzU3OTliZDc1YWIyOTI1MzczNjY3ZmYmWC1BbXotU2lnbmVkSGVhZGVycz1ob3N0JmFjdG9yX2lkPTAma2V5X2lkPTAmcmVwb19pZD0wIn0.7Ad_iB8tuUI_RQvcFqaMnLlDYShEG20LxDKVEDkgMm0" controls="controls" muted="muted" class="d-block rounded-bottom-2 border-top width-fit" style="max-height:640px; min-height: 200px">
 
-## Notes
+  </video>
+</details>
 
-* I currently have a lot on my plate and can't manage to document this project. But once I defend this thesis, I'll document everything!
-* **Still waiting for Professor Javanmardi's approval on when to upload the source code. For now I'll be uploading the project runtimes.**   
-* [Checkout my other repository where I'm writing the simulation code for AWSIM.](https://github.com/rzninvo/AWSIM)
-
-## **(LATEST UPDATE)** The real time simulation (Semi Digital Twin) for Amirkabir University of Technology Rasht Street (GIF):
-![RASHT_DT_DEMO](./resource/Digital_Twin.gif)
-
-## The real time simulation (Semi Digital Twin) for an intersection demo:
-
-https://github.com/rzninvo/Digital-Twin-of-a-Traffic-Scene-Using-RSU-and-AWSIM/assets/46872428/61aba3b1-a6cb-4f1a-9d2e-9236baa5d7ad
-
-## The real time detection for an intersection demo:
-https://github.com/rzninvo/Digital-Twin-of-a-Traffic-Scene-Using-RSU-and-AWSIM/assets/46872428/2549ab65-fce6-48c2-88c2-b1d3b224020b
-
-## The real time detection for a driving car demo:
-https://github.com/rzninvo/Digital-Twin-of-a-Traffic-Scene-Using-RSU-and-AWSIM/assets/46872428/0ee02405-9e35-4a63-bf8c-4ef97401d949
-
-
-
-## The AWSIM Demo After Configurating Everything
-https://github.com/rzninvo/Digital-Twin-of-a-Traffic-Scene-Using-RSU-and-AWSIM/assets/46872428/f5b05a3e-4cc1-45c5-b072-100a61d440fc
-
-## Project Progress and Timechart:
-* **Step 1** : Getting Lidar input data from our Computer Engineering faculty as a demo and attempting to create it's 3D model.   
-HALF DONE!
-Currently requesting my university to give us a license to record a one-hour lidar recording. The 3D modeling comes after!
-
-* **Step 2** : Finishing the Robotics Course and learning ROS.   
-DONE!
-
-* **Step 3** : Setting up AWSIM and it's required libraries.   
-DONE!   
-
-* **Step 4** : Learning ROS2 Humble and the architecture behind Autoware and AWSIM.  
-DONE!
-
-* **Step 5**  : Learning PCL and converting pcap recordings to PointCloud2 ROS2 Topics and publishing it.  
-DONE!
-
-* **Step 6** : Implementing the real-time 3D detection and tracking using CenterPoint.  
-DONE!
-
-* **Step 7** : Learning Unity  
-DONE!
-
-* **Step 8** : [Added the `autoware_auto_perception_msgs` to the Ros2ForUnity Plugin in AWSIM.](https://github.com/rzninvo/AWSIM/commit/aeeadf17f201f0bec529d97b834286d8ddc114c2)  
-DONE!
-
-* **Step 9** : Creating a new sample scene in which any Tracked Object in Autoware with the confidence of 70+, Spawns a Vehicle.  
-DONE!
-
-* **Step 10** : Making a SLAM map based on the recorded pcap file and creating a Lanelet2 Map using the Tier4 website.
+<div class="markdown-heading" dir="auto"><h2 tabindex="-1" class="heading-element" dir="auto"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">项目进展及时间表：</font></font></h2><a id="user-content-project-progress-and-timechart" class="anchor" aria-label="固定链接：项目进展及时间表：" href="#project-progress-and-timechart"><svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg></a></div>
+<ul dir="auto">
+<li>
+<p dir="auto"><strong><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">步骤 1</font></font></strong><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">：从我们的计算机工程学院获取激光雷达输入&ZeroWidthSpace;&ZeroWidthSpace;数据作为演示，并尝试创建其 3D 模型。</font></font><br><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">
+完成一半！</font><font style="vertical-align: inherit;">目前正在请求我的大学授予我们录制一小时激光雷达录音的许可证。</font><font style="vertical-align: inherit;">接下来是 3D 建模！</font></font></p>
+</li>
+<li>
+<p dir="auto"><strong><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">第 2 步</font></font></strong><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">：完成机器人课程并学习 ROS。</font></font><br><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">
+完毕！</font></font></p>
+</li>
+<li>
+<p dir="auto"><strong><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">第 3 步</font></font></strong><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">：设置 AWSIM 及其所需的库。</font></font><br><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">
+完毕！</font></font></p>
+</li>
+<li>
+<p dir="auto"><strong><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">第 4 步</font></font></strong><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">：学习 ROS2 Humble 以及 Autoware 和 AWSIM 背后的架构。</font></font><br><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">
+完毕！</font></font></p>
+</li>
+<li>
+<p dir="auto"><strong><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">第 5 步</font></font></strong><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">  ：学习 PCL 并将 pcap 录音转换为 PointCloud2 ROS2 主题并发布。</font></font><br><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">
+完毕！</font></font></p>
+</li>
+<li>
+<p dir="auto"><strong><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">步骤 6</font></font></strong><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">：使用 CenterPoint 实现实时 3D 检测和跟踪。</font></font><br><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">
+完毕！</font></font></p>
+</li>
+<li>
+<p dir="auto"><strong><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">第 7 步</font></font></strong><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">：学习 Unity</font></font><br><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">
+完成！</font></font></p>
+</li>
+<li>
+<p dir="auto"><strong><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">第 8 步</font></font></strong><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">：</font></font><a href="https://github.com/rzninvo/AWSIM/commit/aeeadf17f201f0bec529d97b834286d8ddc114c2"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">添加</font></font><code>autoware_auto_perception_msgs</code><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">到 AWSIM 中的 Ros2ForUnity 插件。</font></font></a><br><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">
+完毕！</font></font></p>
+</li>
+<li>
+<p dir="auto"><strong><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">第 9 步</font></font></strong><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">：创建一个新的示例场景，其中 Autoware 中置信度超过 70 的任何跟踪对象都会生成车辆。</font></font><br><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">
+完毕！</font></font></p>
+</li>
+<li>
+<p dir="auto"><strong><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">步骤10</font></font></strong><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">：根据记录的pcap文件制作SLAM地图，并使用Tier4网站创建Lanelet2地图。</font></font></p>
+</li>
+</ul>
+</article></div>
